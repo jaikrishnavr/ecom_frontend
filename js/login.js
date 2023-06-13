@@ -23,9 +23,7 @@ function showLogin() {
 	signupForm.classList.add('d-none');
 	loginForm.classList.remove('d-none');
 }
-const BASE_URL = "https://ecommce-be.herokuapp.com/ecomm/api/v1"
-
-
+const BASE_URL = "http://localhost:8080/ecomm/api/v1"
 
 
 function createCart(){
@@ -50,12 +48,6 @@ function createCart(){
   }
 
 
-
-
-
-
-
-
 function loginFn() {
 	if (loginUsername.value == "") {
 		updateAuthErrorMsg("Username should not be empty");
@@ -63,7 +55,7 @@ function loginFn() {
 		updateAuthErrorMsg("Password should not be empty");
 	} else {
 		const data = {
-            username: loginUsername.value,
+            email: loginUsername.value,
             password: loginPassword.value
         };
 		fetch(BASE_URL + '/auth/signin', {
@@ -100,7 +92,9 @@ function signupFn() {
 		updateAuthErrorMsg("Password should not be empty");
 	} else {
 		const data = {
-            username: signupUsername.value,
+			
+			username: signupUsername.value,
+            name : signupUsername.value,
             password: signupPassword.value,
 			email:signupEmail.value
         };
@@ -108,13 +102,14 @@ function signupFn() {
 			method: 'POST', // or 'PUT'
 			headers: {
 				'Content-Type': 'application/json',
+				"Access-Control-Allow-Origin": "true"
 			},
 			body: JSON.stringify(data),
 		})
 			.then(response => response.json())
 			.then(data => {
 				// console.log('Success:', data);
-                //     localStorage.setItem("username", data.username)
+                     localStorage.setItem("username", data.username)
                 //     localStorage.setItem("userId", data.id);
 				// 	localStorage.setItem("email", data.email);
 				// 	localStorage.setItem("token", data.accessToken);
